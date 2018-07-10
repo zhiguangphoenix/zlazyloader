@@ -1,0 +1,11 @@
+{
+  "name": "vue-zlazyload",
+  "version": "0.0.1",
+  "description": "a mirco vue-lazyload, just for study",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "czg18366118377@yahoo.com",
+  "license": "ISC"
+}
