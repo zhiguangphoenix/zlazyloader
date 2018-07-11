@@ -24,22 +24,68 @@
       height: 400px;
      
     }
+
+    .debounce-throttle {
+      height: 100px;
+      border: 2px dotted;
+      width: 800px;
+      margin: 0 auto;
+    }
+    .d {
+      text-align: center;
+    }
   </style>
 </head>
 <body>
+  <div class="debounce-throttle">
+    <p class="d">debounce: <input type="text" id="debounce"></p>
+    <p class="t">throttle: <input type="text" id="throttle"></p>
+  </div>
+
   <div class="img-area">
     <img src="./default.jpg" data-src="https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/a8014c086e061d95ece831c77cf40ad163d9caa7.jpg" alt="">
     <img src="./default.jpg" data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRojmFBxRIE-oM6sHAaBoqO9bHf0dZnbwfAXkAPHDobUW0MRKho" alt="">
     <img src="./default.jpg" data-src="http://pic.baike.soso.com/p/20140416/bki-20140416014101-2059295304.jpg" alt="">
     <img src="./default.jpg" data-src="http://a0.att.hudong.com/50/75/01300001024098142708754010123.jpg" alt="">
     <img src="./default.jpg" data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9c18cUh3FMaeTF5mW2NImUgMKkD_Ke55fGgxO80c8stkY_Qx1Vg" alt="">
-    <img src="./default.jpg" data-src="http://image.tianjimedia.com/uploadImages/2012/266/57L4B8D40129.jpg" alt="">
+    <img src="./default.jpg" data-src="https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/838ba61ea8d3fd1f8ba275cc374e251f94ca5f99.jpg" alt="">
     <img src="./default.jpg" data-src="http://5b0988e595225.cdn.sohucs.com/images/20180608/1aa6329c497c4c908908c9ce8ff68f53.jpeg" alt="">
     <img src="./default.jpg" data-src="https://i.pinimg.com/originals/67/1a/57/671a5764ade30d0ddfb82ebed4f185d7.jpg" alt="">
     <img src="./default.jpg" data-src="https://n.sinaimg.cn/sinacn02/779/w497h282/20180328/cce8-fysqfnh6649398.jpg" alt="">
-    <img src="./default.jpg" data-src=" http://a4.att.hudong.com/88/51/20200000013920144731510569406_s.jpg" alt="">
+    <img src="./default.jpg" data-src="http://a4.att.hudong.com/88/51/20200000013920144731510569406_s.jpg" alt="">
   </div>
   <script>
+    /*
+      函数防抖
+    */
+    function debounce(func, delay) {
+      var timer;
+      return function (e) {
+        clearTimeout(timer);
+        timer = setTimeout(func, delay);
+      }
+    }
+    
+    function debounceInputHandler() {
+      console.log("debounce Input...");
+    }
+
+    var debounceInput = document.getElementById("debounce");
+    debounceInput.addEventListener("input", debounce(debounceInputHandler, 300), false);
+
+    /*
+      函数节流
+    */
+    function throttle(func, threshhold) {
+      
+    }
+
+    function throttleInputHandler() {
+      console.log("throttle Input...");
+    }
+
+    
+
     var imgs = document.getElementsByTagName("img");
     var area = document.getElementsByClassName("img-area")[0];
     var nextToLoadIndex = 0;  // 下一个待加载的图片index
