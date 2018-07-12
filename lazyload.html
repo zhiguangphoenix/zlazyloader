@@ -31,7 +31,7 @@
       width: 800px;
       margin: 0 auto;
     }
-    .d {
+    .d, .t {
       text-align: center;
     }
   </style>
@@ -44,7 +44,7 @@
 
   <div class="img-area">
     <img src="./default.jpg" data-src="https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/a8014c086e061d95ece831c77cf40ad163d9caa7.jpg" alt="">
-    <img src="./default.jpg" data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRojmFBxRIE-oM6sHAaBoqO9bHf0dZnbwfAXkAPHDobUW0MRKho" alt="">
+    <img src="./default.jpg" data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDX2FR1Iu9HPtiBidCq6buWB-4Jq92HXe-28O5sZXGaJJXDedr" alt="">
     <img src="./default.jpg" data-src="http://pic.baike.soso.com/p/20140416/bki-20140416014101-2059295304.jpg" alt="">
     <img src="./default.jpg" data-src="http://a0.att.hudong.com/50/75/01300001024098142708754010123.jpg" alt="">
     <img src="./default.jpg" data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9c18cUh3FMaeTF5mW2NImUgMKkD_Ke55fGgxO80c8stkY_Qx1Vg" alt="">
@@ -55,6 +55,15 @@
     <img src="./default.jpg" data-src="http://a4.att.hudong.com/88/51/20200000013920144731510569406_s.jpg" alt="">
   </div>
   <script>
+    function getEleById(id) {
+      return document.getElementById(id);
+    }
+    function getElesByTag(tag) {
+      return document.getElementsByTagName(tag);
+    }
+    function getElesByClass(classname) {
+      return document.getElementsByClassName(classname);
+    }
     /*
       函数防抖
     */
@@ -70,26 +79,38 @@
       console.log("debounce Input...");
     }
 
-    var debounceInput = document.getElementById("debounce");
+    var debounceInput = getEleById("debounce");
     debounceInput.addEventListener("input", debounce(debounceInputHandler, 300), false);
 
     /*
       函数节流
     */
-    function throttle(func, threshhold) {
-      
+    function throttle(func, threshold) {
+      var start = new Date();
+      var threshold = threshold || 1000;
+      var timer = null;
+      return function (e) {
+        clearTimeout(timer);
+        var cur = new Date();
+
+        if (cur - start >= threshold) {
+          func();
+          start = cur;
+        }else{
+          timer = setTimeout(func, threshold);
+        }
+      }
     }
 
     function throttleInputHandler() {
       console.log("throttle Input...");
     }
 
+    var throttleInput = getEleById("throttle");
+    throttleInput.addEventListener("input", throttle(throttleInputHandler), false);
+
+    // =================================================================================
     
-
-    var imgs = document.getElementsByTagName("img");
-    var area = document.getElementsByClassName("img-area")[0];
-    var nextToLoadIndex = 0;  // 下一个待加载的图片index
-
     /*
       // 在area中img是否可见
       // img和area都是dom元素
@@ -100,21 +121,29 @@
   
       return area.scrollTop + seeHeight > fromAreaTopDistance;
     }
-    
+
+    var area = getElesByClass("img-area")[0];
     /*
       lazyload主方法
     */
-    function lazyload() {
+    function lazyloadFactory() {
+      var imgs = getElesByTag("img");
+      
+      var nextToLoadIndex = 0;  // 下一个待加载的图片index
       var len = imgs.length;
-      for(var i = nextToLoadIndex; i < len; i++) {
-        if (checkVisible(imgs[i], area) && imgs[i].src !== "./default.jpg") {
-          imgs[i].src = imgs[i].getAttribute("data-src");
-          nextToLoadIndex = i+1;
+      
+      return function () {
+        for (var i = nextToLoadIndex; i < len; i++) {
+          if (checkVisible(imgs[i], area) && imgs[i].src !== "./default.jpg") {
+            imgs[i].src = imgs[i].getAttribute("data-src");
+            nextToLoadIndex = i + 1;
+          }
         }
       }
     }
-    lazyload();
-    area.addEventListener("scroll", lazyload, false);
+    var lazyloader = lazyloadFactory();
+    lazyloader();
+    area.addEventListener("scroll", lazyloader, false);
   </script>
 </body>
 </html>
