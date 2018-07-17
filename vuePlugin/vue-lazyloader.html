@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>vue-lazyloader</title>
+  <style>
+    html, body {
+      margin: 0px;
+      padding: 0px;
+    }
+    .img-area {
+      width: 800px;
+      margin: 0 auto;
+      height: 700px;
+      overflow: scroll;
+      background: #eee;
+      text-align: center;
+      margin-top: 20px;
+    }
+    img {
+      width: 600px;
+      height: 400px;
+    }
+  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="./vue/vue.js"></script>
+  <script src="../../vue-lazyload/vue-lazyload.js"></script>
+</head>
+<body>
+    <div class="img-area" id="area" v-lazy-container="{ selector: 'img' }">
+      <img src="../default.jpg" data-src="https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/a8014c086e061d95ece831c77cf40ad163d9caa7.jpg"
+        alt="">
+      <img src="../default.jpg" data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDX2FR1Iu9HPtiBidCq6buWB-4Jq92HXe-28O5sZXGaJJXDedr"
+        alt="">
+      <img src="../default.jpg" data-src="http://pic.baike.soso.com/p/20140416/bki-20140416014101-2059295304.jpg" alt="">
+      <img src="../default.jpg" data-src="http://a0.att.hudong.com/50/75/01300001024098142708754010123.jpg" alt="">
+      <img src="../default.jpg" data-src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9c18cUh3FMaeTF5mW2NImUgMKkD_Ke55fGgxO80c8stkY_Qx1Vg"
+        alt="">
+      <img src="../default.jpg" data-src="https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/838ba61ea8d3fd1f8ba275cc374e251f94ca5f99.jpg"
+        alt="">
+      <img src="../default.jpg" data-src="http://5b0988e595225.cdn.sohucs.com/images/20180608/1aa6329c497c4c908908c9ce8ff68f53.jpeg"
+        alt="">
+      <img src="../default.jpg" data-src="https://i.pinimg.com/originals/67/1a/57/671a5764ade30d0ddfb82ebed4f185d7.jpg" alt="">
+      <img src="../default.jpg" data-src="https://n.sinaimg.cn/sinacn02/779/w497h282/20180328/cce8-fysqfnh6649398.jpg" alt="">
+      <img src="../default.jpg" data-src="http://a4.att.hudong.com/88/51/20200000013920144731510569406_s.jpg" alt="">
+    </div>
+    <!-- <div class="img-area" id="area">
+
+    </div> -->
+  <script>
+    Vue.use(VueLazyload);
+    var imgsArea = new Vue({
+      el: "#area",
+      data: {
+        list: [
+          "https://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/a8014c086e061d95ece831c77cf40ad163d9caa7.jpg",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDX2FR1Iu9HPtiBidCq6buWB-4Jq92HXe-28O5sZXGaJJXDedr",
+          "http://pic.baike.soso.com/p/20140416/bki-20140416014101-2059295304.jpg",
+          "http://a0.att.hudong.com/50/75/01300001024098142708754010123.jpg",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9c18cUh3FMaeTF5mW2NImUgMKkD_Ke55fGgxO80c8stkY_Qx1Vg",
+          "https://gss0.baidu.com/9fo3dSag_xI4khGko9WTAnF6hhy/zhidao/pic/item/838ba61ea8d3fd1f8ba275cc374e251f94ca5f99.jpg",
+          "http://5b0988e595225.cdn.sohucs.com/images/20180608/1aa6329c497c4c908908c9ce8ff68f53.jpeg",
+          "https://i.pinimg.com/originals/67/1a/57/671a5764ade30d0ddfb82ebed4f185d7.jpg",
+          "https://n.sinaimg.cn/sinacn02/779/w497h282/20180328/cce8-fysqfnh6649398.jpg",
+          "http://a4.att.hudong.com/88/51/20200000013920144731510569406_s.jpg"
+        ]
+      }
+    })
+    
+    var lazyloader = {
+      install: function (Vue, options) {
+        
+      }
+    }
+  </script>
+</body>
+</html>
